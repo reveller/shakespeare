@@ -1,4 +1,4 @@
-# Shakespeare Quote Service
+# Shakespeare Quotes Service
 
 Supplemental material for Kubernetes Training.
 
