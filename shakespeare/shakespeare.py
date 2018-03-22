@@ -8,9 +8,9 @@ import random
 import signal
 import time
 
-__version__ = "1.3"
-PORT=5000
-HOSTNAME=os.getenv("HOSTNAME")
+__version__ = "1.4"
+PORT = 5000
+HOSTNAME = os.getenv("HOSTNAME")
 
 from flask import Flask, jsonify, request, Response
 app = Flask(__name__)
@@ -21,21 +21,77 @@ app = Flask(__name__)
 # really needed for a demo though.
 
 quotes = [
-  "Abstraction is ever present.",
-  "A late night does not make any sense.",
-  "A principal idea is omnipresent, much like candy.",
-  "Nihilism gambles with lives, happiness, and even destiny itself!",
-  "The light at the end of the tunnel is interdependent on the relatedness of motivation, subcultures, and management.",
-  "Utter nonsense is a storyteller without equal.",
-  "Non-locality is the driver of truth. By summoning, we vibrate.",
-  "A small mercy is nothing at all?",
-  "The last sentence you read is often sensible nonsense.",
-  "668: The Neighbor of the Beast."
+    "There is nothing either good or bad but thinking makes it so.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_109527",
+    "The course of true love never did run smooth.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_109526",
+    "Some are born great, some achieve greatness, and some have greatness thrust upon them.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_101484",
+    "What's in a name? That which we call a rose by any other name would smell as sweet.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_125207",
+    "Good night, good night! Parting is such sweet sorrow, that I shall say good night till it be morrow.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_155061",
+    "How far that little candle throws its beams! So shines a good deed in a naughty world.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_155088",
+    "Better three hours too soon than a minute too late.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_139153",
+    "There is no darkness but ignorance.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_138212",
+    "All the world's a stage, and all the men and women merely players: they have their exits and their entrances; and one man in his time plays many parts, his acts being seven ages.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_166828",
+    "Cowards die many times before their deaths; the valiant never taste of death but once.  Read more at: https://www.brainyquote.com/quotes/william_shakespeare_104447"
 ]
+
+######### Shakespeare Quote data
+##
+## quote, play, verse, character, iambs
+#shakespeare_data = [
+#  {'quote':   "quote",
+#   'play':    "play",
+#   'verse':   "verse",
+#   'spaketh': "spaketh",
+#   'iambs':   "iambs"},
+#  {'quote':   "To be, or not to be: that is the question",
+#   'play':    "Hamlet",
+#   'verse':   "Prince Hamlet",
+#   'spaketh': "Act III, Scene I",
+#   'iambs':   "to BE - or NOT - to BE - that IS - the QUESTION"},
+#  {'quote':   "What's in a name? That which we call a rose by any other name would smell as sweet",
+#   'play':    "Romeo and Juliet",
+#   'verse':   "Juliet",
+#   'spaketh': "Act II, Scene II",
+#   'iambs':   "what's IN - a NAME - that WHICH - we CALL - a ROSE - by ANY - other NAME - would SMELL - as SWEET"},
+#  {'quote':   "But, soft! What light through yonder window breaks?",
+#   'play':    "Romeo and Juliet",
+#   'verse':   "Act II Scene II",
+#   'spaketh': "Romeo",
+#   'iambs':   "but SOFT - what LIGHT - through YON - der win - dow BREAKS?"},
+#  {'quote':   "O, Romeo, Romeo, where for art thou, Romeo",
+#   'play':    "Romeo and Juliet",
+#   'verse':   "Act II Scene II",
+#   'spaketh': "Juliet",
+#   'iambs':   "O ROMeo - ROM eo - WHEREfore - ART thou - ROMeo"},
+#  {'quote':   "Friends, Romans, countrymen lend me your ears. I come to bury Caesar, not praise him!",
+#   'play':    "Julius Caesar",
+#   'verse':   "Act III, Scene II",
+#   'spaketh': "Mark Antony",
+#   'iambs':   "FRIENDS - ROMANS - COUNTRYMEN - lend ME - your EARS - i COME - to BURY - caesar NOT - praise HIM"},
+#  {'quote':   "All the worlds a stage and all the men and women merely players",
+#   'play':    "As You Like It",
+#   'verse':   "Act II, Scene VII",
+#   'spaketh': "Jacques",
+#   'iambs':   "all THE - worlds a STAGE - and ALL - the MEN - and WOMEN  - mere LY - play ERS"},
+#  {'quote':   "If music be the food of love, play on",
+#   'play':    "Twelfth Night",
+#   'verse':   "Act I, Scene I",
+#   'spaketh': "Duke Orsino",
+#   'iambs':   "if MU - sic BE - the FOOD - of LOVE - play ON"},
+#  {'quote':   "Double, double, toil and trouble, fire burn and cauldron bubble",
+#   'play':    "Macbeth",
+#   'verse':   "Act IV, Scene I",
+#   'spaketh': "Three Witches",
+#   'iambs':   "[Long Trochee] DOUble - DOUble - TOIL and - TROUble - FIre - BURN and - CAULdron - BUbble"},
+#  {'quote':   "Cry 'Havoc!', and let slip the dogs of war",
+#   'play':    "Julius Caesar",
+#   'verse':   "Act III, Scene I",
+#   'spaketh': "Mark Antony",
+#   'iambs':   "cry HAV - oc AND - let SLIP - the DOGS - of WAR"}
+#  ]
 
 ######## Utilities
 
-class RichStatus (object):
+class RichStatus(object):
     def __init__(self, ok, **kwargs):
         self.ok = ok
         self.info = kwargs
@@ -67,7 +123,7 @@ class RichStatus (object):
         return "<RichStatus %s%s>" % ("OK" if self else "BAD", astr)
 
     def toDict(self):
-        d = { 'ok': self.ok }
+        d = {'ok': self.ok}
 
         for key in self.info.keys():
             d[key] = self.info[key]
@@ -137,6 +193,56 @@ def standard_handler(f):
 @standard_handler
 def health():
     return RichStatus.OK(msg="shakespeare health check OK")
+
+####
+# GET /quote_data returns a random quote from the shakespeare_data list of dicts
+# as the 'quote' element of a JSON dictionary. It always returns a status of 200.
+
+@app.route("/shakespeare/", methods=["GET"])
+@standard_handler
+def qd_statement():
+    quote_dict = random.choice(shakespeare_data)
+    quote = quote_dict["quote"]
+    return RichStatus.OK(quote=quote)
+
+####
+# GET /quote/quoteid returns a specific quote. 'quoteid' is the integer index
+# of the quote in our array above.
+#
+# - If all goes well, it returns a JSON dictionary with the requested quote as
+#   the 'quote' element, with status 200.
+# - If something goes wrong, it returns a JSON dictionary with an explanation
+#   of what happened as the 'error' element, with status 400.
+#
+# PUT /quote/quotenum updates a specific quote. It requires a JSON dictionary
+# as the PUT body, with the the new quote contained in the 'quote' dictionary
+# element.
+#
+# - If all goes well, it returns the new quote as if you'd requested it using
+#   the GET verb for this endpoint.
+# - If something goes wrong, it returns a JSON dictionary with an explanation
+#   of what happened as the 'error' element, with status 400.
+
+@app.route("/shakespeare/<idx>", methods=["GET", "PUT"])
+@standard_handler
+def specific_shakespeare(idx):
+    try:
+        idx = int(idx)
+    except ValueError:
+        return RichStatus.fromError("quote IDs must be numbers", status_code=400)
+
+    if (idx < 0) or (idx >= len(shakespeare_data)):
+        return RichStatus.fromError("no quote ID %d" % idx, status_code=400)
+
+    if request.method == "PUT":
+        j = request.json
+
+        if (not j) or ('quote' not in j):
+            return RichStatus.fromError("must supply 'quote' via JSON dictionary", status_code=400)
+
+        shakespeare_data[idx] = j['quote']
+
+    return RichStatus.OK(quote=shakespeare_data[idx])
 
 ####
 # GET / returns a random quote as the 'quote' element of a JSON dictionary. It
