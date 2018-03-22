@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: shakespeare
-        image: reveller/shakespeare:1.5
+        image: reveller/shakespeare:1.6
         imagePullPolicy: Always
         ports:
         - name: http-api
