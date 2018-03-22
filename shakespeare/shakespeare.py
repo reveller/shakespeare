@@ -8,7 +8,7 @@ import random
 import signal
 import time
 
-__version__ = "1.4"
+__version__ = "1.5"
 PORT = 5000
 HOSTNAME = os.getenv("HOSTNAME")
 
@@ -36,58 +36,58 @@ quotes = [
 ######### Shakespeare Quote data
 ##
 ## quote, play, verse, character, iambs
-#shakespeare_data = [
-#  {'quote':   "quote",
-#   'play':    "play",
-#   'verse':   "verse",
-#   'spaketh': "spaketh",
-#   'iambs':   "iambs"},
-#  {'quote':   "To be, or not to be: that is the question",
-#   'play':    "Hamlet",
-#   'verse':   "Prince Hamlet",
-#   'spaketh': "Act III, Scene I",
-#   'iambs':   "to BE - or NOT - to BE - that IS - the QUESTION"},
-#  {'quote':   "What's in a name? That which we call a rose by any other name would smell as sweet",
-#   'play':    "Romeo and Juliet",
-#   'verse':   "Juliet",
-#   'spaketh': "Act II, Scene II",
-#   'iambs':   "what's IN - a NAME - that WHICH - we CALL - a ROSE - by ANY - other NAME - would SMELL - as SWEET"},
-#  {'quote':   "But, soft! What light through yonder window breaks?",
-#   'play':    "Romeo and Juliet",
-#   'verse':   "Act II Scene II",
-#   'spaketh': "Romeo",
-#   'iambs':   "but SOFT - what LIGHT - through YON - der win - dow BREAKS?"},
-#  {'quote':   "O, Romeo, Romeo, where for art thou, Romeo",
-#   'play':    "Romeo and Juliet",
-#   'verse':   "Act II Scene II",
-#   'spaketh': "Juliet",
-#   'iambs':   "O ROMeo - ROM eo - WHEREfore - ART thou - ROMeo"},
-#  {'quote':   "Friends, Romans, countrymen lend me your ears. I come to bury Caesar, not praise him!",
-#   'play':    "Julius Caesar",
-#   'verse':   "Act III, Scene II",
-#   'spaketh': "Mark Antony",
-#   'iambs':   "FRIENDS - ROMANS - COUNTRYMEN - lend ME - your EARS - i COME - to BURY - caesar NOT - praise HIM"},
-#  {'quote':   "All the worlds a stage and all the men and women merely players",
-#   'play':    "As You Like It",
-#   'verse':   "Act II, Scene VII",
-#   'spaketh': "Jacques",
-#   'iambs':   "all THE - worlds a STAGE - and ALL - the MEN - and WOMEN  - mere LY - play ERS"},
-#  {'quote':   "If music be the food of love, play on",
-#   'play':    "Twelfth Night",
-#   'verse':   "Act I, Scene I",
-#   'spaketh': "Duke Orsino",
-#   'iambs':   "if MU - sic BE - the FOOD - of LOVE - play ON"},
-#  {'quote':   "Double, double, toil and trouble, fire burn and cauldron bubble",
-#   'play':    "Macbeth",
-#   'verse':   "Act IV, Scene I",
-#   'spaketh': "Three Witches",
-#   'iambs':   "[Long Trochee] DOUble - DOUble - TOIL and - TROUble - FIre - BURN and - CAULdron - BUbble"},
-#  {'quote':   "Cry 'Havoc!', and let slip the dogs of war",
-#   'play':    "Julius Caesar",
-#   'verse':   "Act III, Scene I",
-#   'spaketh': "Mark Antony",
-#   'iambs':   "cry HAV - oc AND - let SLIP - the DOGS - of WAR"}
-#  ]
+shakespeare_data = [
+  {'quote':   "quote",
+   'play':    "play",
+   'verse':   "verse",
+   'spaketh': "spaketh",
+   'iambs':   "iambs"},
+  {'quote':   "To be, or not to be: that is the question",
+   'play':    "Hamlet",
+   'verse':   "Prince Hamlet",
+   'spaketh': "Act III, Scene I",
+   'iambs':   "to BE - or NOT - to BE - that IS - the QUESTION"},
+  {'quote':   "What's in a name? That which we call a rose by any other name would smell as sweet",
+   'play':    "Romeo and Juliet",
+   'verse':   "Juliet",
+   'spaketh': "Act II, Scene II",
+   'iambs':   "what's IN - a NAME - that WHICH - we CALL - a ROSE - by ANY - other NAME - would SMELL - as SWEET"},
+  {'quote':   "But, soft! What light through yonder window breaks?",
+   'play':    "Romeo and Juliet",
+   'verse':   "Act II Scene II",
+   'spaketh': "Romeo",
+   'iambs':   "but SOFT - what LIGHT - through YON - der win - dow BREAKS?"},
+  {'quote':   "O, Romeo, Romeo, where for art thou, Romeo",
+   'play':    "Romeo and Juliet",
+   'verse':   "Act II Scene II",
+   'spaketh': "Juliet",
+   'iambs':   "O ROMeo - ROM eo - WHEREfore - ART thou - ROMeo"},
+  {'quote':   "Friends, Romans, countrymen lend me your ears. I come to bury Caesar, not praise him!",
+   'play':    "Julius Caesar",
+   'verse':   "Act III, Scene II",
+   'spaketh': "Mark Antony",
+   'iambs':   "FRIENDS - ROMANS - COUNTRYMEN - lend ME - your EARS - i COME - to BURY - caesar NOT - praise HIM"},
+  {'quote':   "All the worlds a stage and all the men and women merely players",
+   'play':    "As You Like It",
+   'verse':   "Act II, Scene VII",
+   'spaketh': "Jacques",
+   'iambs':   "all THE - worlds a STAGE - and ALL - the MEN - and WOMEN  - mere LY - play ERS"},
+  {'quote':   "If music be the food of love, play on",
+   'play':    "Twelfth Night",
+   'verse':   "Act I, Scene I",
+   'spaketh': "Duke Orsino",
+   'iambs':   "if MU - sic BE - the FOOD - of LOVE - play ON"},
+  {'quote':   "Double, double, toil and trouble, fire burn and cauldron bubble",
+   'play':    "Macbeth",
+   'verse':   "Act IV, Scene I",
+   'spaketh': "Three Witches",
+   'iambs':   "[Long Trochee] DOUble - DOUble - TOIL and - TROUble - FIre - BURN and - CAULdron - BUbble"},
+  {'quote':   "Cry 'Havoc!', and let slip the dogs of war",
+   'play':    "Julius Caesar",
+   'verse':   "Act III, Scene I",
+   'spaketh': "Mark Antony",
+   'iambs':   "cry HAV - oc AND - let SLIP - the DOGS - of WAR"}
+  ]
 
 ######## Utilities
 
@@ -195,7 +195,7 @@ def health():
     return RichStatus.OK(msg="shakespeare health check OK")
 
 ####
-# GET /quote_data returns a random quote from the shakespeare_data list of dicts
+# GET /shakespeare/ returns a random quote from the shakespeare_data list of dicts
 # as the 'quote' element of a JSON dictionary. It always returns a status of 200.
 
 @app.route("/shakespeare/", methods=["GET"])
@@ -206,7 +206,7 @@ def qd_statement():
     return RichStatus.OK(quote=quote)
 
 ####
-# GET /quote/quoteid returns a specific quote. 'quoteid' is the integer index
+# GET /shakespeare/<quoteidx> returns a specific quote. 'quoteid' is the integer index
 # of the quote in our array above.
 #
 # - If all goes well, it returns a JSON dictionary with the requested quote as
@@ -223,7 +223,7 @@ def qd_statement():
 # - If something goes wrong, it returns a JSON dictionary with an explanation
 #   of what happened as the 'error' element, with status 400.
 
-@app.route("/shakespeare/<idx>", methods=["GET", "PUT"])
+@app.route("/shakespeare/<int:idx>", methods=["GET", "PUT"])
 @standard_handler
 def specific_shakespeare(idx):
     try:
@@ -243,6 +243,35 @@ def specific_shakespeare(idx):
         shakespeare_data[idx] = j['quote']
 
     return RichStatus.OK(quote=shakespeare_data[idx])
+
+####
+# GET /shakespeare/<quoteidx>/spaketh returns the name of the character who
+# spoke the specific quote. 'quoteidx' is the integer index
+# of the quote in our array above.
+#
+# - If all goes well, it returns a JSON dictionary with the requested quote as
+#   the 'quote' element, with status 200.
+# - If something goes wrong, it returns a JSON dictionary with an explanation
+#   of what happened as the 'error' element, with status 400.
+#
+# PUT /quote/quotenum updates a specific quote. It requires a JSON dictionary
+# as the PUT body, with the the new quote contained in the 'quote' dictionary
+# element.
+#
+# - If all goes well, it returns the new quote as if you'd requested it using
+#   the GET verb for this endpoint.
+# - If something goes wrong, it returns a JSON dictionary with an explanation
+#   of what happened as the 'error' element, with status 400.
+
+@app.route("/shakespeare/<int:idx>/spaketh", methods=["GET"])
+@standard_handler
+def shakespeare_spaketh(idx):
+    if (idx < 0) or (idx >= len(shakespeare_data)):
+        return RichStatus.fromError("no quote ID %d" % idx, status_code=400)
+
+    quote_dict = shakespeare_data[idx]
+    character = quote_dict["spaketh"]
+    return RichStatus.OK(spaketh=character)
 
 ####
 # GET / returns a random quote as the 'quote' element of a JSON dictionary. It
